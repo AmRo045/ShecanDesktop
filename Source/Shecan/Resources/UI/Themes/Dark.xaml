@@ -2,11 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Color x:Key="ForegroundColor">#ffffff</Color>
-    <Color x:Key="ForegroundColor50">#f0f0f0</Color>
-    <Color x:Key="ForegroundColor30">#c0c0c0</Color>
-    <Color x:Key="ForegroundColor10">#46464F</Color>
     <Color x:Key="BackgroundColor">#232B44</Color>
-    <Color x:Key="BackgroundColor90">#202936</Color>
+    <Color x:Key="BackgroundColor90">#1E253B</Color>
+    <Color x:Key="BackgroundColor60">#171D2E</Color>
     <Color x:Key="AccentBackgroundColor">#29314E</Color>
 
     <!--#region MahApps Brushes-->
@@ -24,11 +22,11 @@
     <SolidColorBrush x:Key="AccentBackground" Color="{StaticResource AccentBackgroundColor}"/>
     <SolidColorBrush x:Key="BodyBackground" Color="{StaticResource BackgroundColor}"/>
     <SolidColorBrush x:Key="BodyBackground90" Color="{StaticResource BackgroundColor90}"/>
+    <SolidColorBrush x:Key="BodyBackground60" Color="{StaticResource BackgroundColor60}"/>
     <SolidColorBrush x:Key="BodyForeground" Color="{StaticResource ForegroundColor}"/>
-    <SolidColorBrush x:Key="BodyForeground50" Color="{StaticResource ForegroundColor50}"/>
-    <SolidColorBrush x:Key="BodyForeground30" Color="{StaticResource ForegroundColor30}"/>
-    <SolidColorBrush x:Key="BodyForeground10" Color="{StaticResource ForegroundColor10}"/>
     <SolidColorBrush x:Key="LikeButtonColor" Color="{StaticResource Primary500}" Opacity="0.4"/>
+    <SolidColorBrush x:Key="EnabledColor" Color="#4CAF50"/>
+    <SolidColorBrush x:Key="DisabledColor" Color="#f44336"/>
     <SolidColorBrush x:Key="ScrollBarColor" Color="#0A1323"/>
     <SolidColorBrush x:Key="BoxOverlayColor" Color="Black" Opacity="0.6"/>
     <!--#endregion-->

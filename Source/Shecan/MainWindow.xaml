@@ -5,8 +5,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:controls="clr-namespace:Shecan.Views.Controls"
     mc:Ignorable="d"
-    Icon="{StaticResource AppIcon}"
+    Icon="{StaticResource AppIcon48X48}"
     SaveWindowPosition="False"
     WindowStartupLocation="CenterScreen"
     TitleCharacterCasing="Normal"
@@ -26,10 +27,26 @@
     MaxHeight="{StaticResource MainWindowHeight}" 
     MaxWidth="{StaticResource MainWindowWidth}"
     MinHeight="{StaticResource MainWindowHeight}" 
-    MinWidth="{StaticResource MainWindowWidth}">
+    MinWidth="{StaticResource MainWindowWidth}"
+    Loaded="OnMainWindowLoaded">
 
     <Grid>
-        
+        <!--#region Main Frame-->
+        <Frame 
+            Name="MainFrame" 
+            x:FieldModifier="private"
+            NavigationUIVisibility="Hidden"
+            Focusable="False"
+            FocusVisualStyle="{x:Null}"/>
+        <!--#endregion-->
+
+        <!--#region Boxes Host-->
+        <controls:BoxHost
+            x:Name="BoxHost"
+            x:FieldModifier="private"
+            Width="{Binding ElementName=MainSectionGrid, Path=ActualWidth}"
+            Height="{Binding ElementName=MainSectionGrid, Path=ActualHeight}"/>
+        <!--#endregion-->
     </Grid>
 
 </metro:MetroWindow>

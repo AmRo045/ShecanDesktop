@@ -39,6 +39,6 @@
     <system:String x:Key="MyGitHubPage">https://github.com/AmRo045</system:String>
     <system:String x:Key="MyInstagramPage">https://www.instagram.com/AmRo045</system:String>
     <system:String x:Key="ProjectSourceCodePage">https://github.com/AmRo045/ShecanDesktop</system:String>
-    <system:String x:Key="ProjectIssuesPage">https://github.com/AmRo045/ShecanDesktop/Issues</system:String>
+    <system:String x:Key="ProjectIssuesPage">https://github.com/AmRo045/ShecanDesktop/issues</system:String>
 
 </ResourceDictionary>

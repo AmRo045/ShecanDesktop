@@ -1,0 +1,139 @@
+﻿<Page x:Class="Shecan.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:viewModels="clr-namespace:Shecan.ViewModels"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="480" 
+      d:DesignWidth="400">
+
+    <Page.DataContext>
+        <viewModels:MainPageViewModel/>
+    </Page.DataContext>
+
+    <Grid Background="{DynamicResource BodyBackground}">
+        <Grid.RowDefinitions>
+            <!--Logo, Title & Slogan-->
+            <RowDefinition Height="200"/>
+            <!--Enable & Disable button-->
+            <RowDefinition Height="Auto"/>
+            <!--Summary & Internet status message snackbar-->
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Logo & Title-->
+        <StackPanel Grid.Row="0" VerticalAlignment="Center">
+            <Image 
+                Source="{StaticResource AppIcon86X86}"
+                Stretch="UniformToFill"
+                Width="86"
+                Height="86"/>
+
+            <Label 
+                Content="{StaticResource AppName}"
+                FontSize="{StaticResource XLargeFontSize}"/>
+
+            <Label 
+                Content="{StaticResource AppSlogan}"
+                Opacity="0.6"/>
+        </StackPanel>
+
+        <!--Enable & Disable button-->
+        <StackPanel 
+            Grid.Row="1" 
+            Orientation="Horizontal"
+            HorizontalAlignment="Center">
+            <Button 
+                Content="ENABLE"
+                Style="{DynamicResource MaterialDesignRaisedButton}"
+                Command="{Binding Path=EnableCommand}"
+                Height="36"
+                Margin="8"
+                BorderThickness="0"
+                BorderBrush="Transparent"
+                HorizontalAlignment="Center"/>
+
+            <Button 
+                Content="DISABLE"
+                Style="{DynamicResource MaterialDesignFlatButton}"
+                Command="{Binding Path=DisableCommand}"
+                Height="36"
+                Margin="8"
+                HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <!--Summary-->
+        <StackPanel 
+            Grid.Row="2"
+            Margin="16"
+            VerticalAlignment="Bottom"
+            Background="{DynamicResource BodyBackground90}">
+
+            <DockPanel Margin="6">
+                <Label 
+                    Content="Shecan Status:"
+                    Opacity="0.6"/>
+                <Label 
+                    Content="{Binding Path=ShecanStatus, Converter={StaticResource BoolToStatusConverter}}" 
+                    FontWeight="SemiBold"
+                    HorizontalAlignment="Right">
+                    <Label.Style>
+                        <Style TargetType="{x:Type Label}">
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledColor}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=ShecanStatus}" Value="true">
+                                    <Setter Property="Foreground" Value="{DynamicResource EnabledColor}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+            </DockPanel>
+
+            <DockPanel Margin="6">
+                <Label 
+                    Content="Current Interface:"
+                    Opacity="0.6"/>
+                <Label 
+                    Content="{Binding Path=CurrentInterface, FallbackValue='NOT FOUND'}" 
+                    HorizontalAlignment="Right"
+                    FontWeight="SemiBold"/>
+            </DockPanel>
+
+            <DockPanel Margin="6">
+                <Label 
+                    Content="Preferred DNS:"
+                    Opacity="0.6"/>
+                <Label 
+                    Content="{Binding Path=CurrentPreferredDns, FallbackValue='NOT SET'}" 
+                    HorizontalAlignment="Right"
+                    FontWeight="SemiBold"/>
+            </DockPanel>
+
+            <DockPanel Margin="6">
+                <Label 
+                    Content="Alternate DNS:"
+                    Opacity="0.6"/>
+                <Label 
+                    Content="{Binding Path=CurrentAlternateDns, FallbackValue='NOT SET'}" 
+                    HorizontalAlignment="Right"
+                    FontWeight="SemiBold"/>
+            </DockPanel>
+
+        </StackPanel>
+
+        <!--Internet status message snackbar-->
+        <materialDesign:Snackbar
+            Grid.Row="2"
+            Margin="0, 0, 0, 8"
+            Background="{DynamicResource BodyBackground60}"
+            IsActive="{Binding Path=InternetSnackbarVisibility, FallbackValue=False}">
+            <materialDesign:SnackbarMessage 
+                Content="You are offline!"
+                ActionContent="OK"
+                ActionCommand="{Binding Path=CloseSnackbarCommand}"/>
+        </materialDesign:Snackbar>
+    </Grid>
+</Page>

@@ -31,8 +31,7 @@ namespace Shecan
 
             if (Dispatcher != null)
             {
-                Dispatcher.UnhandledException += (sender, args)
-                    =>
+                Dispatcher.UnhandledException += (sender, args) =>
                 {
                     LogException(args.Exception, "Dispatcher.UnhandledException");
                 };

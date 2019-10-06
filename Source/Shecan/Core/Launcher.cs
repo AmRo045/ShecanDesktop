@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using Shecan.Common.Log;
 
@@ -24,18 +25,7 @@ namespace Shecan.Core
         #endregion
 
         #region Non-Static Public Members
-
-        public virtual void StartApplication()
-        {
-            if (!_isAppReadyToLaunch)
-                throw new InvalidOperationException("App is not ready to launch. You must calling the Prepare method first.");
-
-            var mainWindow = new MainWindow();
-
-            Application.Current.MainWindow = mainWindow;
-            Application.Current.MainWindow.ShowDialog();
-        }
-
+        
         public virtual void PrepareApplication()
         {
             // Create a instance of LauncherInfo and puts it in LauncherInfo field.
@@ -52,6 +42,9 @@ namespace Shecan.Core
             // Because we need to primary directories collection that will specify in LauncherInfo.
             CheckPrimaryDirectories();
 
+            // If powershell script was not found, we have to create it from embedded resources
+            CheckPowerShellScript();
+
             // Manage app crash details
             ManageAppCrash();
 
@@ -63,6 +56,20 @@ namespace Shecan.Core
 
             // Set app status
             _isAppReadyToLaunch = true;
+        }
+
+        public virtual void StartApplication()
+        {
+            if (!_isAppReadyToLaunch)
+                throw new InvalidOperationException("App is not ready to launch. You must calling the Prepare method first.");
+
+            var mainWindow = new MainWindow();
+
+            Application.Current.MainWindow = mainWindow;
+            // Since we register unhandled exceptions
+            // manager in App.xaml.cs (EnableUnhandledExceptionManager method) after
+            // the application launched, we cannot show the main window using ShowDialog method.
+            Application.Current.MainWindow.Show();
         }
 
         #endregion
@@ -94,6 +101,27 @@ namespace Shecan.Core
                     continue;
 
                 Directory.CreateDirectory(primaryDirectory);
+            }
+        }
+
+        protected void CheckPowerShellScript()
+        {
+            if (File.Exists(LauncherInfo.PowerShellScriptFile))
+                return;
+
+            try
+            {
+                var fileName = Path.GetFileName(LauncherInfo.PowerShellScriptFile);
+                var resourceName = $"{LauncherInfo.AppNamespace}.Resources.Shell.{fileName}";
+                using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+                using (var file = new FileStream(LauncherInfo.PowerShellScriptFile, FileMode.Create, FileAccess.Write))
+                {
+                    resource?.CopyTo(file);
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError(exception.Message);
             }
         }
 

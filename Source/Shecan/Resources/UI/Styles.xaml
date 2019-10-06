@@ -77,7 +77,7 @@
                 <ControlTemplate TargetType="Button">
                     <TextBlock TextDecorations="Underline" 
                                Padding="2, 0"
-                               Margin="0, 0, 0, -2">
+                               Margin="0, 0, 0, -4">
                         <ContentPresenter />
                     </TextBlock>
                 </ControlTemplate>
@@ -93,25 +93,5 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
-    <!--#region Main page tab menu-->
-    <Style x:Key="MainPageTabMenuPackIcon" TargetType="{x:Type materialDesign:PackIcon}">
-        <!-- ReSharper disable once Xaml.RedundantPropertyTypeQualifier -->
-        <Setter Property="Control.Height" Value="22"/>
-        <!-- ReSharper disable once Xaml.RedundantPropertyTypeQualifier -->
-        <Setter Property="Control.Width" Value="22"/>
-        <!-- ReSharper disable once Xaml.RedundantPropertyTypeQualifier -->
-        <Setter Property="Control.Margin" Value="4, 0, 0, 0"/>
-    </Style>
-
-    <Style x:Key="MainPageTabMenuActiveButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-    </Style>
-
-    <Style x:Key="MainPageTabMenuInactiveButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MainPageTabMenuActiveButton}">
-        <Setter Property="Foreground" Value="{DynamicResource BodyForeground50}"/>
-    </Style>
-    <!--#endregion-->
-
+    
 </ResourceDictionary>

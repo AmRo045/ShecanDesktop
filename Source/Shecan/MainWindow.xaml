@@ -6,6 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:controls="clr-namespace:Shecan.Views.Controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:viewModels="clr-namespace:Shecan.ViewModels"
     mc:Ignorable="d"
     Icon="{StaticResource AppIcon48X48}"
     SaveWindowPosition="False"
@@ -28,7 +30,42 @@
     MaxWidth="{StaticResource MainWindowWidth}"
     MinHeight="{StaticResource MainWindowHeight}" 
     MinWidth="{StaticResource MainWindowWidth}"
-    Loaded="OnMainWindowLoaded">
+    Loaded="OnMainWindowLoaded"
+    Name="This">
+
+    <metro:MetroWindow.DataContext>
+        <viewModels:MainWindowViewModel/>
+    </metro:MetroWindow.DataContext>
+
+    <metro:MetroWindow.LeftWindowCommands>
+        <metro:WindowCommands>
+            <Menu
+                Padding="0"
+                Height="28"
+                Background="{DynamicResource BodyBackground}">
+                <MenuItem 
+                    Padding="0" 
+                    Height="28"
+                    Background="{DynamicResource AccentBackground}">
+
+                    <MenuItem.Header>
+                        <materialDesign:PackIcon Kind="Menu" Margin="6, 4"/>
+                    </MenuItem.Header>
+
+                    <MenuItem 
+                        Name="BugReportMenuItem"
+                        Header="Report Bug" 
+                        Tag="{StaticResource ProjectIssuesPage}"
+                        Command="{Binding ElementName=This, Path=DataContext.OpenIssuesPageCommand}"
+                        CommandParameter="{Binding ElementName=BugReportMenuItem, Path=Tag}"/>
+
+                    <MenuItem 
+                        Header="About"
+                        Command="{Binding ElementName=This, Path=DataContext.OpenAboutPageCommand}"/>
+                </MenuItem>
+            </Menu>
+        </metro:WindowCommands>
+    </metro:MetroWindow.LeftWindowCommands>
 
     <Grid>
         <!--#region Main Frame-->

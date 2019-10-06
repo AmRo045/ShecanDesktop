@@ -1,0 +1,117 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+    <Style x:Key="BorderWithShadow" TargetType="{x:Type Border}">
+        <Setter Property="Background" Value="{DynamicResource AccentBackground}"/>
+        <Setter Property="Margin" Value="6"/>
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect 
+                    Opacity="0.2"
+                    Direction="270"
+                    ShadowDepth="1.0"
+                    BlurRadius="2.0"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Label}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="{StaticResource CustomFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource MediumFontSize}" />
+        <Setter Property="Foreground" Value="{DynamicResource BodyForeground}" />
+    </Style>
+
+    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource MaterialDesignMenuItem}">
+        <Setter Property="FontFamily" Value="{StaticResource CustomFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource MediumFontSize}" />
+        <Setter Property="Foreground" Value="{DynamicResource BodyForeground}" />
+    </Style>
+
+    <Style x:Key="TitleLabel" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="{StaticResource LargeFontSize}"/>
+        <Setter Property="FontFamily" Value="{StaticResource CustomFontFamily}"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0, 0, 0, 0"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{DynamicResource BodyForeground}" />
+    </Style>
+    
+    <Style TargetType="{x:Type Control}">
+        <Setter Property="FontFamily" Value="{StaticResource CustomFontFamily}" />
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="{StaticResource CustomFontFamily}" />
+    </Style>
+
+    <Style TargetType="{x:Type materialDesign:PackIcon}">
+        <!-- ReSharper disable once Xaml.RedundantPropertyTypeQualifier -->
+        <Setter Property="Control.VerticalAlignment" Value="Center" />
+        <!-- ReSharper disable once Xaml.RedundantPropertyTypeQualifier -->
+        <Setter Property="Control.HorizontalAlignment" Value="Center" />
+        <!-- ReSharper disable once Xaml.RedundantPropertyTypeQualifier -->
+        <Setter Property="Control.Foreground" Value="{DynamicResource BodyForeground}" />
+    </Style>
+
+    <Style BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}" TargetType="{x:Type TextBox}">
+        <Setter Property="materialDesign:ValidationAssist.Background" Value="Transparent"/>
+        <Setter Property="materialDesign:ValidationAssist.OnlyShowOnFocus" Value="True"/>
+        <Setter Property="materialDesign:HintAssist.FloatingScale" Value="1" />
+        <Setter Property="materialDesign:HintAssist.FloatingOffset" Value="1,-20" />
+        <Setter Property="Foreground" Value="{DynamicResource BodyForeground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BodyForeground10}" />
+        <Setter Property="FontSize" Value="{StaticResource MediumFontSize}" />
+        <Setter Property="FontFamily" Value="{StaticResource CustomFontFamily}" />
+        <Setter Property="ContextMenu" Value="{StaticResource InputContextMenu}" />
+    </Style>
+
+    <Style x:Key="LinkButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <TextBlock TextDecorations="Underline" 
+                               Padding="2, 0"
+                               Margin="0, 0, 0, -2">
+                        <ContentPresenter />
+                    </TextBlock>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Foreground" Value="{StaticResource PrimaryHueDarkBrush}" />
+        <Setter Property="Cursor" Value="Hand" />
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource PrimaryHueMidBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--#region Main page tab menu-->
+    <Style x:Key="MainPageTabMenuPackIcon" TargetType="{x:Type materialDesign:PackIcon}">
+        <!-- ReSharper disable once Xaml.RedundantPropertyTypeQualifier -->
+        <Setter Property="Control.Height" Value="22"/>
+        <!-- ReSharper disable once Xaml.RedundantPropertyTypeQualifier -->
+        <Setter Property="Control.Width" Value="22"/>
+        <!-- ReSharper disable once Xaml.RedundantPropertyTypeQualifier -->
+        <Setter Property="Control.Margin" Value="4, 0, 0, 0"/>
+    </Style>
+
+    <Style x:Key="MainPageTabMenuActiveButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+    </Style>
+
+    <Style x:Key="MainPageTabMenuInactiveButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MainPageTabMenuActiveButton}">
+        <Setter Property="Foreground" Value="{DynamicResource BodyForeground50}"/>
+    </Style>
+    <!--#endregion-->
+
+</ResourceDictionary>

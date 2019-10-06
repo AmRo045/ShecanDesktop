@@ -20,6 +20,17 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
                 <!--#endregion-->
 
+                <!--#region Custom Resources-->
+                <ResourceDictionary Source="pack://application:,,,/Resources/UI/Themes/Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/UI/Resources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/UI/Styles.xaml" />
+                <!--#endregion-->
+
+                <!--#region Patches-->
+                <ResourceDictionary Source="pack://application:,,,/Resources/UI/Patches/ScrollBar.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/UI/Patches/MaterialDesignTextBox.xaml" />
+                <!--#endregion-->
+
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>

@@ -1,0 +1,43 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="ForegroundColor">#ffffff</Color>
+    <Color x:Key="ForegroundColor50">#f0f0f0</Color>
+    <Color x:Key="ForegroundColor30">#c0c0c0</Color>
+    <Color x:Key="ForegroundColor10">#46464F</Color>
+    <Color x:Key="BackgroundColor">#232B44</Color>
+    <Color x:Key="BackgroundColor90">#202936</Color>
+    <Color x:Key="AccentBackgroundColor">#29314E</Color>
+
+    <!--#region MahApps Brushes-->
+    <SolidColorBrush x:Key="AccentBaseColorBrush" Color="{DynamicResource Primary600}" />
+    <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource Primary500}"/>
+    <!--#endregion-->
+
+    <!--#region MaterialDesign Brushes-->
+    <SolidColorBrush x:Key="MaterialDesignFlatButtonRipple" Color="#0A1323"/>
+    <SolidColorBrush x:Key="MaterialDesignFlatButtonClick" Color="#0A1323" Opacity="0.6"/>
+    <!--#endregion-->
+
+    <!--#region Custom Brushes-->
+    <SolidColorBrush x:Key="TitleBarBackground" Color="{StaticResource AccentBackgroundColor}"/>
+    <SolidColorBrush x:Key="AccentBackground" Color="{StaticResource AccentBackgroundColor}"/>
+    <SolidColorBrush x:Key="BodyBackground" Color="{StaticResource BackgroundColor}"/>
+    <SolidColorBrush x:Key="BodyBackground90" Color="{StaticResource BackgroundColor90}"/>
+    <SolidColorBrush x:Key="BodyForeground" Color="{StaticResource ForegroundColor}"/>
+    <SolidColorBrush x:Key="BodyForeground50" Color="{StaticResource ForegroundColor50}"/>
+    <SolidColorBrush x:Key="BodyForeground30" Color="{StaticResource ForegroundColor30}"/>
+    <SolidColorBrush x:Key="BodyForeground10" Color="{StaticResource ForegroundColor10}"/>
+    <SolidColorBrush x:Key="GlobalPlayerBodyProgressBarColor" Color="{StaticResource Primary500}" Opacity="0.04"/>
+    <SolidColorBrush x:Key="ShuffleButtonColor" Color="{StaticResource IdealForegroundColor}" Opacity="0.4"/>
+    <SolidColorBrush x:Key="LikeButtonColor" Color="{StaticResource Primary500}" Opacity="0.4"/>
+    <SolidColorBrush x:Key="ScrollBarColor" Color="#0A1323"/>
+    <SolidColorBrush x:Key="BoxOverlayColor" Color="Black" Opacity="0.6"/>
+    <SolidColorBrush x:Key="OverlayForeground" Color="White"/>
+    <LinearGradientBrush x:Key="OverlayBackground" EndPoint="0.5, 0" StartPoint="0.5, 1" Opacity="0.6">
+        <GradientStop Color="{StaticResource Primary500}" Offset="2.0"/>
+        <GradientStop Color="{StaticResource BackgroundColor}" Offset="0.2"/>
+    </LinearGradientBrush>
+    <!--#endregion-->
+
+</ResourceDictionary>

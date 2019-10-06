@@ -11,7 +11,7 @@
     <system:Double x:Key="XLargeFontSize">24</system:Double>
     <system:Double x:Key="XxLargeFontSize">32</system:Double>
     <system:Double x:Key="MainWindowWidth">400</system:Double>
-    <system:Double x:Key="MainWindowHeight">520</system:Double>
+    <system:Double x:Key="MainWindowHeight">480</system:Double>
 
     <ContextMenu x:Key="InputContextMenu"
                  Background="{DynamicResource BodyBackground}">
@@ -33,6 +33,7 @@
     </ContextMenu>
 
     <system:String x:Key="AppName">Shecan Desktop</system:String>
+    <system:String x:Key="AppSlogan">With Shecan you can easily bypass sanctions</system:String>
     <system:String x:Key="AppVersion">{1.0.0}</system:String>
     <system:String x:Key="ShecanHomePage">https://shecan.ir/</system:String>
     <system:String x:Key="MyGitHubPage">https://github.com/AmRo045</system:String>

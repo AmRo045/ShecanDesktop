@@ -35,7 +35,7 @@
                 FontSize="{StaticResource SmallFontSize}"
                 HorizontalAlignment="Left"
                 Padding="16, 0, 16, 4"
-                Foreground="{DynamicResource BodyForeground30}"/>
+                Opacity="0.6"/>
         </DockPanel>
 
         <!-- Description -->

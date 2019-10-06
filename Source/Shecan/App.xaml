@@ -1,8 +1,7 @@
 ﻿<Application x:Class="Shecan.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:converters="clr-namespace:Shecan.Converters"
-             StartupUri="MainWindow.xaml">
+             xmlns:converters="clr-namespace:Shecan.Converters">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,7 +17,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/materialdesigncolor.Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/materialdesigncolor.Green.xaml" />
                 <!--#endregion-->
 
                 <!--#region Custom Resources-->
@@ -36,6 +35,7 @@
 
             <!--#region Converters-->
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <converters:BoolToStatusConverter x:Key="BoolToStatusConverter"/>
             <!--#endregion-->
 
         </ResourceDictionary>

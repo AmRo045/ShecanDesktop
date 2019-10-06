@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ShecanDesktop Desktop")]
-[assembly: AssemblyDescription("Simple Windows application for ShecanDesktop service (See ShecanDesktop.ir for more information).")]
+[assembly: AssemblyTitle("Shecan Desktop")]
+[assembly: AssemblyDescription("Simple Windows application for Shecanservice (See Shecan.ir for more information).")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ShecanDesktop Desktop")]
+[assembly: AssemblyProduct("Shecan Desktop")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

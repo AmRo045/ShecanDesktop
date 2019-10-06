@@ -32,7 +32,7 @@
                   FontSize="{StaticResource MediumFontSize}"/>
     </ContextMenu>
 
-    <system:String x:Key="AppName">Shecan</system:String>
+    <system:String x:Key="AppName">Shecan Desktop</system:String>
     <system:String x:Key="AppVersion">{1.0.0}</system:String>
     <system:String x:Key="ShecanHomePage">https://shecan.ir/</system:String>
     <system:String x:Key="MyGitHubPage">https://github.com/AmRo045</system:String>

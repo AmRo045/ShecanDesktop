@@ -48,7 +48,7 @@
 
             <Run>This is the Windows application for</Run>
             <Button Tag="{StaticResource ShecanDesktopHomePage}"
-                    Content="ShecanDesktop"
+                    Content="Shecan"
                     Click="LinkButtonOnClick"
                     Style="{DynamicResource LinkButton}"/>
             <Run>service.</Run>
@@ -56,7 +56,7 @@
             <LineBreak/>
             <LineBreak/>
 
-            <Run>The ShecanDesktop service used to bypass some sanctions on the internet.</Run>
+            <Run>The Shecan service used to bypass some sanctions on the internet.</Run>
 
             <LineBreak/>
             <LineBreak/>

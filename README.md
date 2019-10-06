@@ -1,5 +1,5 @@
-<p style="text-align:center;">
-	<img src="Source/ShecanDesktop/Resources/Images/Original.png" alt="Shecan Logo"/>
+<p align="center">
+<img src="Source/ShecanDesktop/Resources/Images/Original.png" alt="Shecan Logo"/>
 </p>
 
 # Shecan Desktop
@@ -27,7 +27,7 @@ Simple Windows application for Shecan service (See [Shecan.ir](https://shecan.ir
 
 ## Screenshots
 
-<p style="text-align:center;">
-	<img src="Docs/Shecan-Off.png" alt="Shecan Off"/>
-	<img src="Docs/Shecan-On.png" alt="Shecan On"/>
+<p align="center">
+<img src="Docs/Shecan-Off.png" alt="Shecan Off"/>
+<img src="Docs/Shecan-On.png" alt="Shecan On"/>
 </p>

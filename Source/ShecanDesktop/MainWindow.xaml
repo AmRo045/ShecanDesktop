@@ -1,0 +1,89 @@
+﻿<metro:MetroWindow 
+    x:Class="ShecanDesktop.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:controls="clr-namespace:ShecanDesktop.Views.Controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:viewModels="clr-namespace:ShecanDesktop.ViewModels"
+    mc:Ignorable="d"
+    Icon="{StaticResource AppIcon48X48}"
+    SaveWindowPosition="False"
+    WindowStartupLocation="CenterScreen"
+    TitleCharacterCasing="Normal"
+    ShowIconOnTitleBar="False"
+    Background="{DynamicResource BodyBackground}"
+    TitleForeground="{DynamicResource BodyForeground}"
+    WindowTitleBrush="{DynamicResource TitleBarBackground}"
+    NonActiveWindowTitleBrush="{DynamicResource TitleBarBackground}" 
+    NonActiveBorderBrush="Transparent"
+    NonActiveGlowBrush="Black"
+    BorderThickness="0"
+    GlowBrush="Black"
+    TitlebarHeight="28"
+    ShowMaxRestoreButton="False"
+    Height="{StaticResource MainWindowHeight}" 
+    Width="{StaticResource MainWindowWidth}"
+    MaxHeight="{StaticResource MainWindowHeight}" 
+    MaxWidth="{StaticResource MainWindowWidth}"
+    MinHeight="{StaticResource MainWindowHeight}" 
+    MinWidth="{StaticResource MainWindowWidth}"
+    Loaded="OnMainWindowLoaded"
+    Name="This">
+
+    <metro:MetroWindow.DataContext>
+        <viewModels:MainWindowViewModel/>
+    </metro:MetroWindow.DataContext>
+
+    <metro:MetroWindow.LeftWindowCommands>
+        <metro:WindowCommands>
+            <Menu
+                Padding="0"
+                Height="28"
+                Background="{DynamicResource BodyBackground}">
+                <MenuItem 
+                    Padding="0" 
+                    Height="28"
+                    Background="{DynamicResource AccentBackground}">
+
+                    <MenuItem.Header>
+                        <materialDesign:PackIcon Kind="Menu" Margin="6, 4"/>
+                    </MenuItem.Header>
+
+                    <MenuItem 
+                        Name="BugReportMenuItem"
+                        Header="Report Bug" 
+                        Tag="{StaticResource ProjectIssuesPage}"
+                        Command="{Binding ElementName=This, Path=DataContext.OpenIssuesPageCommand}"
+                        CommandParameter="{Binding ElementName=BugReportMenuItem, Path=Tag}"/>
+
+                    <MenuItem 
+                        Header="About"
+                        Command="{Binding ElementName=This, Path=DataContext.OpenAboutPageCommand}"/>
+                </MenuItem>
+            </Menu>
+        </metro:WindowCommands>
+    </metro:MetroWindow.LeftWindowCommands>
+
+    <Grid>
+        <!--#region Main Frame-->
+        <Frame 
+            Name="MainFrame" 
+            x:FieldModifier="private"
+            NavigationUIVisibility="Hidden"
+            Focusable="False"
+            FocusVisualStyle="{x:Null}"/>
+        <!--#endregion-->
+
+        <!--#region Boxes Host-->
+        <controls:BoxHost
+            x:Name="BoxHost"
+            x:FieldModifier="private"
+            Width="{Binding ElementName=MainSectionGrid, Path=ActualWidth}"
+            Height="{Binding ElementName=MainSectionGrid, Path=ActualHeight}"/>
+        <!--#endregion-->
+    </Grid>
+
+</metro:MetroWindow>

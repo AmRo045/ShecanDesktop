@@ -1,0 +1,43 @@
+﻿<Application x:Class="ShecanDesktop.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:ShecanDesktop.Converters">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <!--#region MahApps Resources-->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                <!--#endregion-->
+
+                <!--#region MaterialDesign Resources-->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/materialdesigncolor.Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/materialdesigncolor.Green.xaml" />
+                <!--#endregion-->
+
+                <!--#region Custom Resources-->
+                <ResourceDictionary Source="pack://application:,,,/Resources/UI/Themes/Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/UI/Resources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/UI/Styles.xaml" />
+                <!--#endregion-->
+
+                <!--#region Patches-->
+                <ResourceDictionary Source="pack://application:,,,/Resources/UI/Patches/ScrollBar.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/UI/Patches/MaterialDesignTextBox.xaml" />
+                <!--#endregion-->
+
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--#region Converters-->
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <converters:BoolToStatusConverter x:Key="BoolToStatusConverter"/>
+            <!--#endregion-->
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

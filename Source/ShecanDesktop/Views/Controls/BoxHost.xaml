@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="ShecanDesktop.Views.Controls.BoxHost"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" 
+             d:DesignWidth="300"
+             Name="This">
+
+    <!--Container-->
+    <Canvas Name="BoxContainerCanvas"
+            ZIndex="5" 
+            Visibility="Collapsed"
+            Width="{Binding ElementName=This, Path=ActualWidth}"
+            Height="{Binding ElementName=This, Path=ActualHeight}">
+
+        <!--Background Effect-->
+        <DockPanel Background="{DynamicResource BoxOverlayColor}"
+                   Width="{Binding ElementName=BoxContainerCanvas, Path=ActualWidth}"
+                   Height="{Binding ElementName=BoxContainerCanvas, Path=ActualHeight}"
+                   MouseDown="BackgroundOnMouseDown"/>
+
+        <!--Wrapper-->
+        <DockPanel HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Width="{Binding ElementName=BoxContainerCanvas, Path=ActualWidth}"
+                   Height="{Binding ElementName=BoxContainerCanvas, Path=ActualHeight}">
+            <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect FadeIn, Duration=0:0:0.25}">
+                <!--Frame Border-->
+                <materialDesign:Card Background="{DynamicResource BodyBackground}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         UniformCornerRadius="3">
+
+                    <!--Child Page Frame-->
+                    <Frame Name="BoxContentFrame"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           NavigationUIVisibility="Hidden"
+                           Focusable="False"
+                           FocusVisualStyle="{x:Null}"/>
+                </materialDesign:Card>
+            </materialDesign:TransitioningContent>
+        </DockPanel>
+    </Canvas>
+</UserControl>

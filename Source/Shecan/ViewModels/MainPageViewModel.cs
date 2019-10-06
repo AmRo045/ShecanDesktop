@@ -17,7 +17,7 @@ namespace Shecan.ViewModels
             var alternateServer = Properties.Resources.AlternateServer;
             _shecanDns = new Dns(preferredServer, alternateServer);
 
-            _dnsService = new DnsService(@"D:\Workspace\Programming\VS2015\WPF\DnsChanger\DnsChanger\bin\Debug\DnsChanger.ps1");
+            _dnsService = new DnsService(Launcher.LauncherInfo.PowerShellScriptFile);
             _dnsService.DnsChanged += OnDnsChanged;
 
             RegisterCommands();

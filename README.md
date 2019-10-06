@@ -14,6 +14,16 @@ Simple Windows application for Shecan service (See [Shecan.ir](https://shecan.ir
 4. Restore the packages
 5. Build
 
+## Create Setup
+
+After doing following steps, you can get the Setup.exe in Setup\Output directory.
+
+1. Install Inno Setup
+2. Build app in release mode
+3. Run SetupShell.ps1 file in Setup directory
+4. Compile Inno Setup config file (SetupConfig.iss) in Setup directory
+
+
 ## Third-Party
 
 1. Fody.4.2.1

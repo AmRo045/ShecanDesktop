@@ -9,6 +9,30 @@ namespace Shecan.Core
     public class LauncherInfo
     {
         /// <summary>
+        ///     Setting up the <see cref="LauncherInfo" /> properties value
+        /// </summary>
+        public void Initialize()
+        {
+            SetAppCommandLine();
+            SetAppName();
+            SetAppNameWithoutExe();
+            SetAppFullPath();
+            // Must call after SetAppFullPath() method
+            SetAppRootFolder();
+            // Must call after SetAppFullPath() method
+            SetAppVersion();
+            SetAppFrameworkVersion();
+            SetAppLogFolder();
+            SetAppCrashFolder();
+            SetAppConfigFile();
+            SetAppPrimaryDirectories();
+            SetAppNamespace();
+            SetAppCrashFile();
+            SetPowerShellScriptFile();
+        }
+
+
+        /// <summary>
         ///     Get the application command line as a row <see cref="string" />
         /// </summary>
         public string AppCommandLine { get; private set; }
@@ -64,6 +88,11 @@ namespace Shecan.Core
         public string AppConfigFile { get; private set; }
 
         /// <summary>
+        ///     Get the power shell script file path that used to modify system DNS servers
+        /// </summary>
+        public string PowerShellScriptFile { get; private set; }
+
+        /// <summary>
         ///     Get the application primary directories
         /// </summary>
         public IEnumerable<string> AppPrimaryDirectories { get; set; }
@@ -72,28 +101,6 @@ namespace Shecan.Core
         ///     Get the application namespace
         /// </summary>
         public string AppNamespace { get; private set; }
-
-        /// <summary>
-        ///     Setting up the <see cref="LauncherInfo" /> properties value
-        /// </summary>
-        public void Initialize()
-        {
-            SetAppCommandLine();
-            SetAppName();
-            SetAppNameWithoutExe();
-            SetAppFullPath();
-            // Must call after SetAppFullPath() method
-            SetAppRootFolder();
-            // Must call after SetAppFullPath() method
-            SetAppVersion();
-            SetAppFrameworkVersion();
-            SetAppLogFolder();
-            SetAppCrashFolder();
-            SetAppConfigFile();
-            SetAppPrimaryDirectories();
-            SetAppNamespace();
-            SetAppCrashFile();
-        }
 
 
         /// <summary>
@@ -215,6 +222,14 @@ namespace Shecan.Core
         {
             var appType = typeof(App);
             AppNamespace = appType.Namespace;
+        }
+
+        /// <summary>
+        ///     Set the power shell script file path that used to modify system DNS servers
+        /// </summary>
+        protected void SetPowerShellScriptFile()
+        {
+            PowerShellScriptFile = $"{AppRootFolder}DnsAssist.ps1";
         }
     }
 }

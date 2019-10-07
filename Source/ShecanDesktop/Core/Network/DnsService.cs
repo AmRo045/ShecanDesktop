@@ -77,8 +77,8 @@ namespace ShecanDesktop.Core.Network
         {
             var addresses = System.Net.Dns.GetHostAddresses(url);
 
-            return new Dns(addresses[0].ToString(),
-                addresses[1].ToString());
+            return new Dns(addresses[1].ToString(),
+                addresses[0].ToString());
         }
 
 

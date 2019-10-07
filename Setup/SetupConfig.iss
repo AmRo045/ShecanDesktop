@@ -3,7 +3,7 @@
 
 #define MyAppName "ShecanDesktop"
 #define MyAppSetupName "ShecanDesktop_Setup"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.0.2"
 #define MyAppPublisher "AmRo"
 #define MyAppURL "https://github.com/AmRo045/ShecanDesktop"
 #define MyAppExeName "ShecanDesktop.exe"

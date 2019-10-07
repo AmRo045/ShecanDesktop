@@ -11,5 +11,6 @@ namespace ShecanDesktop.Core.Network
         void Unset();
         Dns GetCurrentDns();
         string GetCurrentInterfaceAlias();
+        Dns GetDnsFromUrl(string url);
     }
 }

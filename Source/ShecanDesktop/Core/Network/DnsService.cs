@@ -73,6 +73,14 @@ namespace ShecanDesktop.Core.Network
             return networkInterface?.Name;
         }
 
+        public Dns GetDnsFromUrl(string url)
+        {
+            var addresses = System.Net.Dns.GetHostAddresses(url);
+
+            return new Dns(addresses[0].ToString(),
+                addresses[1].ToString());
+        }
+
 
         protected virtual void OnDnsChanged()
         {

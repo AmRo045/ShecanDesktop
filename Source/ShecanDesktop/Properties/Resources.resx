@@ -117,10 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlternateServer" xml:space="preserve">
-    <value>185.51.200.2</value>
-  </data>
-  <data name="PreferredServer" xml:space="preserve">
-    <value>178.22.122.100</value>
+  <data name="ShecanDnsProvider" xml:space="preserve">
+    <value>dns.shecan.ir</value>
   </data>
 </root>

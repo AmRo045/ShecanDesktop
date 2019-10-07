@@ -61,20 +61,11 @@ namespace ShecanDesktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 185.51.200.2.
+        ///   Looks up a localized string similar to dns.shecan.ir.
         /// </summary>
-        internal static string AlternateServer {
+        internal static string ShecanDnsProvider {
             get {
-                return ResourceManager.GetString("AlternateServer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 178.22.122.100.
-        /// </summary>
-        internal static string PreferredServer {
-            get {
-                return ResourceManager.GetString("PreferredServer", resourceCulture);
+                return ResourceManager.GetString("ShecanDnsProvider", resourceCulture);
             }
         }
     }

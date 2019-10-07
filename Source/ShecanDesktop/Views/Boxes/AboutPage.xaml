@@ -46,7 +46,7 @@
             Foreground="{DynamicResource BodyForeground}"
             TextWrapping="Wrap">
 
-            <Run>This is the Windows application for</Run>
+            <Run>This is the unofficial Windows application for</Run>
             <Button Tag="{StaticResource ShecanDesktopHomePage}"
                     Content="Shecan"
                     Click="LinkButtonOnClick"

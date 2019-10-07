@@ -2,7 +2,7 @@
 <img src="Source/ShecanDesktop/Resources/Images/Original.png" alt="Shecan Logo"/>
 </p>
 
-# Shecan Desktop
+# Shecan Desktop (Unofficial)
 
 Simple Windows application for Shecan service (See [Shecan.ir](https://shecan.ir) for more information).
 

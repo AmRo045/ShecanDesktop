@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Sockets;
 using System.Windows.Input;
 using ShecanDesktop.Core;
 using ShecanDesktop.Core.Network;
@@ -13,12 +14,21 @@ namespace ShecanDesktop.ViewModels
 
         public MainPageViewModel()
         {
-            var preferredServer = Properties.Resources.PreferredServer;
-            var alternateServer = Properties.Resources.AlternateServer;
-            _shecanDns = new Dns(preferredServer, alternateServer);
-
             _dnsService = new DnsService(Launcher.LauncherInfo.PowerShellScriptFile);
             _dnsService.DnsChanged += OnDnsChanged;
+
+            var shecanDnsProvider = Properties.Resources.ShecanDnsProvider;
+
+            try
+            {
+                _shecanDns = _dnsService.GetDnsFromUrl(shecanDnsProvider);
+            }
+            catch (SocketException exception)
+            {
+                InternetSnackbarVisibility = true;
+                Launcher.Logger.LogError(exception.Message);
+            }
+
 
             RegisterCommands();
             SetStatus();
@@ -72,10 +82,10 @@ namespace ShecanDesktop.ViewModels
             {
                 _dnsService.Set(_shecanDns);
             }
-            catch (Exception exception)
+            catch (SocketException exception)
             {
-                Launcher.Logger.LogError(exception.Message);
                 InternetSnackbarVisibility = true;
+                Launcher.Logger.LogError(exception.Message);
             }
         }
 
@@ -85,10 +95,10 @@ namespace ShecanDesktop.ViewModels
             {
                 _dnsService.Unset();
             }
-            catch (Exception exception)
+            catch (SocketException exception)
             {
-                Launcher.Logger.LogError(exception.Message);
                 InternetSnackbarVisibility = true;
+                Launcher.Logger.LogError(exception.Message);
             }
         }
 

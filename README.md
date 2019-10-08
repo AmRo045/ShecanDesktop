@@ -37,6 +37,5 @@ After doing following steps, you can get the Setup.exe in Setup\Output directory
 ## Screenshots
 
 <p align="center">
-<img src="Docs/Shecan-Off.png" alt="Shecan Off"/>
-<img src="Docs/Shecan-On.png" alt="Shecan On"/>
+<img src="Docs/Shecan.png" alt="Shecan"/>
 </p>

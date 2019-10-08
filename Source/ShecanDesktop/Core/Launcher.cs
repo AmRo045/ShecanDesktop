@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using ShecanDesktop.Common.Log;
 
@@ -41,9 +40,6 @@ namespace ShecanDesktop.Core
             // NOTE: Should be call after launcher initializing.
             // Because we need to primary directories collection that will specify in LauncherInfo.
             CheckPrimaryDirectories();
-
-            // If powershell script was not found, we have to create it from embedded resources
-            CheckPowerShellScript();
 
             // Manage app crash details
             ManageAppCrash();
@@ -101,27 +97,6 @@ namespace ShecanDesktop.Core
                     continue;
 
                 Directory.CreateDirectory(primaryDirectory);
-            }
-        }
-
-        protected void CheckPowerShellScript()
-        {
-            if (File.Exists(LauncherInfo.PowerShellScriptFile))
-                return;
-
-            try
-            {
-                var fileName = Path.GetFileName(LauncherInfo.PowerShellScriptFile);
-                var resourceName = $"{LauncherInfo.AppNamespace}.Resources.Shell.{fileName}";
-                using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
-                using (var file = new FileStream(LauncherInfo.PowerShellScriptFile, FileMode.Create, FileAccess.Write))
-                {
-                    resource?.CopyTo(file);
-                }
-            }
-            catch (Exception exception)
-            {
-                Logger.LogError(exception.Message);
             }
         }
 

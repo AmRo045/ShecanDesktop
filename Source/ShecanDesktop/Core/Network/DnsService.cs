@@ -1,42 +1,73 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using ShecanDesktop.Models;
+using System.Management;
 
 namespace ShecanDesktop.Core.Network
 {
     public class DnsService : BaseDnsService, IDnsService
     {
-        public DnsService(string powerShellScriptFile)
-            : base(powerShellScriptFile)
-        {
-
-        }
-
         public event EventHandler DnsChanged;
 
         public virtual void Set(Dns dns)
         {
-            if (!File.Exists(PowerShellScriptFile))
-                throw new InvalidOperationException("Script file not found!");
+            var ipAddresses = new[] { dns.PreferredServer, dns.AlternateServer };
+            var currentInterface = GetCurrentInterface();
+            if (currentInterface == null) return;
 
-            var currentInterfaceAlias = GetCurrentInterfaceAlias();
-            var setCommand = CreateSetCommand(currentInterfaceAlias, dns);
+            var managementClass = new ManagementClass(NetworkConfigurationPath);
+            var managementObjectCollection = managementClass.GetInstances();
 
-            RunPowerShellCommand(setCommand);
+            foreach (var o in managementObjectCollection)
+            {
+                var managementObject = (ManagementObject)o;
+
+                if (!(bool)managementObject["IPEnabled"])
+                    continue;
+
+                if (!managementObject["Caption"].ToString().Contains(currentInterface.Description))
+                    continue;
+
+                var managementBaseObject = managementObject.GetMethodParameters("SetDNSServerSearchOrder");
+
+                if (managementBaseObject == null) continue;
+
+                managementBaseObject["DNSServerSearchOrder"] = ipAddresses;
+                managementObject.InvokeMethod("SetDNSServerSearchOrder", managementBaseObject, null);
+                break;
+            }
+
             OnDnsChanged();
         }
 
         public virtual void Unset()
         {
-            if (!File.Exists(PowerShellScriptFile))
-                throw new InvalidOperationException("Script file not found!");
+            var currentInterface = GetCurrentInterface();
+            if (currentInterface == null) return;
 
-            var currentInterfaceAlias = GetCurrentInterfaceAlias();
-            var unsetCommand = CreateUnsetCommand(currentInterfaceAlias);
+            var managementClass = new ManagementClass(NetworkConfigurationPath);
+            var managementObjectCollection = managementClass.GetInstances();
 
-            RunPowerShellCommand(unsetCommand);
+            foreach (var o in managementObjectCollection)
+            {
+                var managementObject = (ManagementObject)o;
+
+                if (!(bool)managementObject["IPEnabled"])
+                    continue;
+
+                if (!managementObject["Caption"].ToString().Contains(currentInterface.Description))
+                    continue;
+
+                var managementBaseObject = managementObject.GetMethodParameters("SetDNSServerSearchOrder");
+
+                if (managementBaseObject == null) continue;
+
+                managementBaseObject["DNSServerSearchOrder"] = null;
+                managementObject.InvokeMethod("SetDNSServerSearchOrder", managementBaseObject, null);
+                break;
+            }
+
             OnDnsChanged();
         }
 
@@ -81,9 +112,9 @@ namespace ShecanDesktop.Core.Network
                 addresses[0].ToString());
         }
 
-
         protected virtual void OnDnsChanged()
         {
+            FlushDns();
             DnsChanged?.Invoke(this, EventArgs.Empty);
         }
     }

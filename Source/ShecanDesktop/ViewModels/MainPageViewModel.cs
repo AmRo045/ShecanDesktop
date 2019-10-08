@@ -14,7 +14,7 @@ namespace ShecanDesktop.ViewModels
 
         public MainPageViewModel()
         {
-            _dnsService = new DnsService(Launcher.LauncherInfo.PowerShellScriptFile);
+            _dnsService = new DnsService();
             _dnsService.DnsChanged += OnDnsChanged;
 
             var shecanDnsProvider = Properties.Resources.ShecanDnsProvider;
@@ -28,7 +28,6 @@ namespace ShecanDesktop.ViewModels
                 InternetSnackbarVisibility = true;
                 Launcher.Logger.LogError(exception.Message);
             }
-
 
             RegisterCommands();
             SetStatus();

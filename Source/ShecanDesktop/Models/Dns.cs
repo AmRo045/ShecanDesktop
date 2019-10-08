@@ -16,15 +16,20 @@ namespace ShecanDesktop.Models
         public override bool Equals(object parameter)
         {
             if (parameter == null) return false;
-            var dns = (Dns)parameter;
+            var other = (Dns)parameter;
 
-            return PreferredServer.Equals(dns.PreferredServer) &&
-                   AlternateServer.Equals(dns.AlternateServer);
+            return PreferredServer == other.PreferredServer &&
+                   AlternateServer == other.AlternateServer ||
+                   PreferredServer == other.AlternateServer &&
+                   AlternateServer == other.PreferredServer;
         }
 
         protected bool Equals(Dns other)
         {
-            return PreferredServer == other.PreferredServer && AlternateServer == other.AlternateServer;
+            return PreferredServer == other.PreferredServer &&
+                   AlternateServer == other.AlternateServer ||
+                   PreferredServer == other.AlternateServer &&
+                   AlternateServer == other.PreferredServer;
         }
 
         public override int GetHashCode()

@@ -32,8 +32,7 @@ After doing following steps, you can get the Setup.exe in Setup\Output directory
 4. MaterialDesignColors.1.1.3
 5. MahApps.Metro.1.6.0
 6. ControlzEx.3.0.2.4
-7. Microsoft.PowerShell.3.ReferenceAssemblies.1.0.0
-8. Newtonsoft.Json.12.0.2
+7. Newtonsoft.Json.12.0.2
 
 ## Screenshots
 

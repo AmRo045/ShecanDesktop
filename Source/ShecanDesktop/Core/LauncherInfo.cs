@@ -28,7 +28,6 @@ namespace ShecanDesktop.Core
             SetAppPrimaryDirectories();
             SetAppNamespace();
             SetAppCrashFile();
-            SetPowerShellScriptFile();
         }
 
 
@@ -86,11 +85,6 @@ namespace ShecanDesktop.Core
         ///     Get the application config file path
         /// </summary>
         public string AppConfigFile { get; private set; }
-
-        /// <summary>
-        ///     Get the power shell script file path that used to modify system DNS servers
-        /// </summary>
-        public string PowerShellScriptFile { get; private set; }
 
         /// <summary>
         ///     Get the application primary directories
@@ -222,14 +216,6 @@ namespace ShecanDesktop.Core
         {
             var appType = typeof(App);
             AppNamespace = appType.Namespace;
-        }
-
-        /// <summary>
-        ///     Set the power shell script file path that used to modify system DNS servers
-        /// </summary>
-        protected void SetPowerShellScriptFile()
-        {
-            PowerShellScriptFile = $"{AppRootFolder}DnsAssist.ps1";
         }
     }
 }

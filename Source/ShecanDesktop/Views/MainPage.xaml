@@ -73,7 +73,7 @@
 
             <DockPanel Margin="6">
                 <Label 
-                    Content="ShecanDesktop Status:"
+                    Content="Shecan Status:"
                     Opacity="0.6"/>
                 <Label 
                     Content="{Binding Path=ShecanDesktopStatus, Converter={StaticResource BoolToStatusConverter}}" 

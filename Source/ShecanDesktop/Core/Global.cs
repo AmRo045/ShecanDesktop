@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Win32;
-using ShecanDesktop.Common.Log;
+using ShecanDesktop.Common;
+using ShecanDesktop.Contracts;
 
 namespace ShecanDesktop.Core
 {

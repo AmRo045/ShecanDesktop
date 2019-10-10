@@ -92,8 +92,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Common\Log\ILogger.cs" />
-    <Compile Include="Common\Log\Logger.cs" />
+    <Compile Include="Contracts\ILogger.cs" />
+    <Compile Include="Common\Logger.cs" />
     <Compile Include="Contracts\IBox.cs" />
     <Compile Include="Converters\BoolToStatusConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
@@ -229,6 +229,7 @@
   <ItemGroup>
     <Resource Include="Resources\Images\Icon-86x86.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.4.2.1\build\Fody.targets" Condition="Exists('..\packages\Fody.4.2.1\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

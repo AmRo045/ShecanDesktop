@@ -35,7 +35,7 @@ namespace ShecanDesktop.ViewModels
 
         #region Properties
 
-        public bool ShecanDesktopStatus { get; set; }
+        public bool ShecanStatus { get; set; }
         public string CurrentInterface { get; set; }
         public string CurrentPreferredDns { get; set; }
         public string CurrentAlternateDns { get; set; }
@@ -55,10 +55,10 @@ namespace ShecanDesktop.ViewModels
         #region Predicates
 
         private bool CanExecuteEnableCommand(object parameter)
-            => !ShecanDesktopStatus;
+            => !ShecanStatus;
 
         private bool CanExecuteDisableCommand(object parameter)
-            => ShecanDesktopStatus;
+            => ShecanStatus;
 
         private bool CanExecuteCloseSnackbarCommand(object parameter)
             => MessageSnackbarVisibility;
@@ -67,7 +67,7 @@ namespace ShecanDesktop.ViewModels
 
         #region Callbacks
 
-        private void EnableShecanDesktop(object parameter)
+        private void EnableShecan(object parameter)
         {
             if (_dnsService.GetCurrentInterfaceAlias() == null)
             {
@@ -93,7 +93,7 @@ namespace ShecanDesktop.ViewModels
             }
         }
 
-        private void DisableShecanDesktop(object parameter)
+        private void DisableShecan(object parameter)
         {
             if (_dnsService.GetCurrentInterfaceAlias() == null)
             {
@@ -122,8 +122,8 @@ namespace ShecanDesktop.ViewModels
 
         private void RegisterCommands()
         {
-            EnableCommand = new RelayCommand(EnableShecanDesktop, CanExecuteEnableCommand);
-            DisableCommand = new RelayCommand(DisableShecanDesktop, CanExecuteDisableCommand);
+            EnableCommand = new RelayCommand(EnableShecan, CanExecuteEnableCommand);
+            DisableCommand = new RelayCommand(DisableShecan, CanExecuteDisableCommand);
             CloseSnackbarCommand = new RelayCommand(CloseSnackbar, CanExecuteCloseSnackbarCommand);
         }
 
@@ -155,12 +155,12 @@ namespace ShecanDesktop.ViewModels
 
             if (!hasDns)
             {
-                ShecanDesktopStatus = false;
+                ShecanStatus = false;
                 return;
             }
 
             var shecanDns = _dnsService.GetDnsFromUrl(_dnsProviderUrl);
-            ShecanDesktopStatus = currentDns.Equals(shecanDns);
+            ShecanStatus = currentDns.Equals(shecanDns);
         }
 
         private void OnDnsChanged(object sender, EventArgs e)

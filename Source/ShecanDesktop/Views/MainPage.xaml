@@ -76,14 +76,14 @@
                     Content="Shecan Status:"
                     Opacity="0.6"/>
                 <Label 
-                    Content="{Binding Path=ShecanDesktopStatus, Converter={StaticResource BoolToStatusConverter}}" 
+                    Content="{Binding Path=ShecanStatus, Converter={StaticResource BoolToStatusConverter}}" 
                     FontWeight="SemiBold"
                     HorizontalAlignment="Right">
                     <Label.Style>
                         <Style TargetType="{x:Type Label}">
                             <Setter Property="Foreground" Value="{DynamicResource DisabledColor}"/>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=ShecanDesktopStatus}" Value="true">
+                                <DataTrigger Binding="{Binding Path=ShecanStatus}" Value="true">
                                     <Setter Property="Foreground" Value="{DynamicResource EnabledColor}"/>
                                 </DataTrigger>
                             </Style.Triggers>

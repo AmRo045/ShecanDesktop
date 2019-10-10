@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace ShecanDesktop.Core
 {
-    public class LauncherInfo
+    public class AppInfo
     {
         /// <summary>
-        ///     Setting up the <see cref="LauncherInfo" /> properties value
+        ///     Setting up the <see cref="AppInfo" /> properties value
         /// </summary>
         public void Initialize()
         {

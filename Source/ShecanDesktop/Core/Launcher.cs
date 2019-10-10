@@ -8,18 +8,8 @@ namespace ShecanDesktop.Core
 {
     public class Launcher
     {
-        #region Constructors
-
-        public Launcher(AppInfo appInfo)
-        {
-            _appInfo = appInfo;
-        }
-
-        #endregion
-
         #region Private Members
 
-        private readonly AppInfo _appInfo;
         private bool _isAppReadyToLaunch;
 
         #endregion
@@ -62,7 +52,7 @@ namespace ShecanDesktop.Core
 
         protected void CheckPrimaryDirectories()
         {
-            var primaryDirectories = _appInfo.AppPrimaryDirectories;
+            var primaryDirectories = Global.AppInfo.AppPrimaryDirectories;
 
             foreach (var primaryDirectory in primaryDirectories)
             {
@@ -75,21 +65,21 @@ namespace ShecanDesktop.Core
 
         protected void ManageAppCrash()
         {
-            if (!File.Exists(_appInfo.AppCrashFile))
+            if (!File.Exists(Global.AppInfo.AppCrashFile))
                 return;
 
-            var crashDetails = File.ReadAllLines(_appInfo.AppCrashFile);
+            var crashDetails = File.ReadAllLines(Global.AppInfo.AppCrashFile);
             if (crashDetails.Length < 0) return;
 
             // Crash file new location
-            var crashFileNewLocation = $"{_appInfo.AppCrashFolder}{DateTime.Now:yyyy-MM-dd hh-mm-ss}.txt";
+            var crashFileNewLocation = $"{Global.AppInfo.AppCrashFolder}{DateTime.Now:yyyy-MM-dd hh-mm-ss}.txt";
 
             // Prepare crash folder
-            if (!Directory.Exists(_appInfo.AppCrashFolder))
-                Directory.CreateDirectory(_appInfo.AppCrashFolder);
+            if (!Directory.Exists(Global.AppInfo.AppCrashFolder))
+                Directory.CreateDirectory(Global.AppInfo.AppCrashFolder);
 
             // Move crash file to crash folder
-            File.Move(_appInfo.AppCrashFile,
+            File.Move(Global.AppInfo.AppCrashFile,
                 crashFileNewLocation);
 
             // Display app last crash details using Notepad
@@ -107,7 +97,7 @@ namespace ShecanDesktop.Core
 
         protected void SetAppInfo()
         {
-            Application.Current.Resources["AppVersion"] = _appInfo.AppVersion;
+            Application.Current.Resources["AppVersion"] = Global.AppInfo.AppVersion;
         }
 
         #endregion

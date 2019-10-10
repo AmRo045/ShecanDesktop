@@ -17,7 +17,7 @@ namespace ShecanDesktop
             // Must call after the Global.Initialize() method
             EnableUnhandledExceptionManager();
 
-            var launcher = new Launcher(Global.AppInfo);
+            var launcher = new Launcher();
             // Must call after the Global.Initialize() method
             launcher.Prepare();
             launcher.Start();

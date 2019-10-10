@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Net.Sockets;
 using System.Windows.Input;
 using ShecanDesktop.Core;
 using ShecanDesktop.Core.Network;
-using ShecanDesktop.Models;
 using ShecanDesktop.ViewModels.Base;
 
 namespace ShecanDesktop.ViewModels
@@ -14,20 +12,11 @@ namespace ShecanDesktop.ViewModels
 
         public MainPageViewModel()
         {
+            _dnsProviderUrl = Properties.Resources.ShecanDnsProvider;
+            _dnsResolvingError = "Unable to fetch IP addresses!";
+            _offlineStateError = "You are offline.";
             _dnsService = new DnsService();
             _dnsService.DnsChanged += OnDnsChanged;
-
-            var shecanDnsProvider = Properties.Resources.ShecanDnsProvider;
-
-            try
-            {
-                _shecanDns = _dnsService.GetDnsFromUrl(shecanDnsProvider);
-            }
-            catch (SocketException exception)
-            {
-                InternetSnackbarVisibility = true;
-                Launcher.Logger.LogError(exception.Message);
-            }
 
             RegisterCommands();
             SetStatus();
@@ -37,8 +26,10 @@ namespace ShecanDesktop.ViewModels
 
         #region Fields
 
+        private readonly string _dnsProviderUrl;
+        private readonly string _dnsResolvingError;
+        private readonly string _offlineStateError;
         private readonly IDnsService _dnsService;
-        private readonly Dns _shecanDns;
 
         #endregion
 
@@ -48,7 +39,8 @@ namespace ShecanDesktop.ViewModels
         public string CurrentInterface { get; set; }
         public string CurrentPreferredDns { get; set; }
         public string CurrentAlternateDns { get; set; }
-        public bool InternetSnackbarVisibility { get; set; }
+        public string MessageSnackbarContent { get; set; }
+        public bool MessageSnackbarVisibility { get; set; }
 
         #endregion
 
@@ -69,7 +61,7 @@ namespace ShecanDesktop.ViewModels
             => ShecanDesktopStatus;
 
         private bool CanExecuteCloseSnackbarCommand(object parameter)
-            => InternetSnackbarVisibility;
+            => MessageSnackbarVisibility;
 
         #endregion
 
@@ -77,33 +69,51 @@ namespace ShecanDesktop.ViewModels
 
         private void EnableShecanDesktop(object parameter)
         {
+            if (_dnsService.GetCurrentInterfaceAlias() == null)
+            {
+                SetSnackbarStatus(true, _offlineStateError, true);
+                return;
+            }
+
+            var shecanDns = _dnsService.GetDnsFromUrl(_dnsProviderUrl);
+
+            if (shecanDns == null)
+            {
+                SetSnackbarStatus(true, _dnsResolvingError, true);
+                return;
+            }
+
             try
             {
-                _dnsService.Set(_shecanDns);
+                _dnsService.Set(shecanDns);
             }
-            catch (SocketException exception)
+            catch (Exception exception)
             {
-                InternetSnackbarVisibility = true;
-                Launcher.Logger.LogError(exception.Message);
+                SetSnackbarStatus(true, exception.Message, true);
             }
         }
 
         private void DisableShecanDesktop(object parameter)
         {
+            if (_dnsService.GetCurrentInterfaceAlias() == null)
+            {
+                SetSnackbarStatus(true, _offlineStateError, true);
+                return;
+            }
+
             try
             {
                 _dnsService.Unset();
             }
-            catch (SocketException exception)
+            catch (Exception exception)
             {
-                InternetSnackbarVisibility = true;
-                Launcher.Logger.LogError(exception.Message);
+                SetSnackbarStatus(true, exception.Message, true);
             }
         }
 
         private void CloseSnackbar(object parameter)
         {
-            InternetSnackbarVisibility = false;
+            MessageSnackbarVisibility = false;
         }
 
         #endregion
@@ -117,13 +127,23 @@ namespace ShecanDesktop.ViewModels
             CloseSnackbarCommand = new RelayCommand(CloseSnackbar, CanExecuteCloseSnackbarCommand);
         }
 
+        private void SetSnackbarStatus(bool show, 
+            string message = null, bool logMessage = false)
+        {
+            MessageSnackbarVisibility = show;
+            MessageSnackbarContent = message;
+
+            if (logMessage)
+                Global.Logger.LogError(message);
+        }
+
         private void SetStatus()
         {
             CurrentInterface = _dnsService.GetCurrentInterfaceAlias();
 
             if (string.IsNullOrEmpty(CurrentInterface))
             {
-                InternetSnackbarVisibility = true;
+                SetSnackbarStatus(true, _offlineStateError);
                 return;
             }
 
@@ -139,7 +159,8 @@ namespace ShecanDesktop.ViewModels
                 return;
             }
 
-            ShecanDesktopStatus = currentDns.Equals(_shecanDns);
+            var shecanDns = _dnsService.GetDnsFromUrl(_dnsProviderUrl);
+            ShecanDesktopStatus = currentDns.Equals(shecanDns);
         }
 
         private void OnDnsChanged(object sender, EventArgs e)

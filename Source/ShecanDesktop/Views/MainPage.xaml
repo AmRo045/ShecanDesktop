@@ -19,7 +19,7 @@
             <RowDefinition Height="200"/>
             <!--Enable & Disable button-->
             <RowDefinition Height="Auto"/>
-            <!--Summary & Internet status message snackbar-->
+            <!--Summary & Snackbar-->
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -124,14 +124,14 @@
 
         </StackPanel>
 
-        <!--Internet status message snackbar-->
+        <!--Snackbar-->
         <materialDesign:Snackbar
             Grid.Row="2"
             Margin="0, 0, 0, 8"
             Background="{DynamicResource BodyBackground60}"
-            IsActive="{Binding Path=InternetSnackbarVisibility, FallbackValue=False}">
+            IsActive="{Binding Path=MessageSnackbarVisibility, FallbackValue=False}">
             <materialDesign:SnackbarMessage 
-                Content="You are offline!"
+                Content="{Binding Path=MessageSnackbarContent}"
                 ActionContent="OK"
                 ActionCommand="{Binding Path=CloseSnackbarCommand}"/>
         </materialDesign:Snackbar>

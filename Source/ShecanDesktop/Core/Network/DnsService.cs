@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Net.NetworkInformation;
 using ShecanDesktop.Models;
-using System.Management;
 
 namespace ShecanDesktop.Core.Network
 {
@@ -10,64 +9,24 @@ namespace ShecanDesktop.Core.Network
     {
         public event EventHandler DnsChanged;
 
+        protected virtual void OnDnsChanged()
+        {
+            FlushDns();
+            DnsChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+
         public virtual void Set(Dns dns)
         {
-            var ipAddresses = new[] { dns.PreferredServer, dns.AlternateServer };
-            var currentInterface = GetCurrentInterface();
-            if (currentInterface == null) return;
-
-            var managementClass = new ManagementClass(NetworkConfigurationPath);
-            var managementObjectCollection = managementClass.GetInstances();
-
-            foreach (var o in managementObjectCollection)
-            {
-                var managementObject = (ManagementObject)o;
-
-                if (!(bool)managementObject["IPEnabled"])
-                    continue;
-
-                if (!managementObject["Caption"].ToString().Contains(currentInterface.Description))
-                    continue;
-
-                var managementBaseObject = managementObject.GetMethodParameters("SetDNSServerSearchOrder");
-
-                if (managementBaseObject == null) continue;
-
-                managementBaseObject["DNSServerSearchOrder"] = ipAddresses;
-                managementObject.InvokeMethod("SetDNSServerSearchOrder", managementBaseObject, null);
-                break;
-            }
-
+            var ipAddresses = $"{dns.PreferredServer},{dns.AlternateServer}";
+            ChangeNameServerValue(ipAddresses);
             OnDnsChanged();
         }
 
         public virtual void Unset()
         {
-            var currentInterface = GetCurrentInterface();
-            if (currentInterface == null) return;
-
-            var managementClass = new ManagementClass(NetworkConfigurationPath);
-            var managementObjectCollection = managementClass.GetInstances();
-
-            foreach (var o in managementObjectCollection)
-            {
-                var managementObject = (ManagementObject)o;
-
-                if (!(bool)managementObject["IPEnabled"])
-                    continue;
-
-                if (!managementObject["Caption"].ToString().Contains(currentInterface.Description))
-                    continue;
-
-                var managementBaseObject = managementObject.GetMethodParameters("SetDNSServerSearchOrder");
-
-                if (managementBaseObject == null) continue;
-
-                managementBaseObject["DNSServerSearchOrder"] = null;
-                managementObject.InvokeMethod("SetDNSServerSearchOrder", managementBaseObject, null);
-                break;
-            }
-
+            var ipAddresses = string.Empty;
+            ChangeNameServerValue(ipAddresses);
             OnDnsChanged();
         }
 
@@ -106,16 +65,22 @@ namespace ShecanDesktop.Core.Network
 
         public Dns GetDnsFromUrl(string url)
         {
-            var addresses = System.Net.Dns.GetHostAddresses(url);
+            try
+            {
+                var addresses = System.Net.Dns.GetHostAddresses(url);
 
-            return new Dns(addresses[1].ToString(),
-                addresses[0].ToString());
-        }
+                var preferredIp = addresses[0].ToString().StartsWith("178") ?
+                    addresses[0].ToString() : addresses[1].ToString();
 
-        protected virtual void OnDnsChanged()
-        {
-            FlushDns();
-            DnsChanged?.Invoke(this, EventArgs.Empty);
+                var alternateIp = addresses[0].ToString().StartsWith("185") ?
+                    addresses[0].ToString() : addresses[1].ToString();
+
+                return new Dns(preferredIp, alternateIp);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

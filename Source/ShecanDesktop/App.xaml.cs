@@ -12,12 +12,15 @@ namespace ShecanDesktop
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            var launcher = new Launcher();
-            launcher.PrepareApplication();
-            launcher.StartApplication();
+            Global.Initialize();
 
-            // Must call after the launcher.PrepareApplication() method
+            // Must call after the Global.Initialize() method
             EnableUnhandledExceptionManager();
+
+            var launcher = new Launcher(Global.AppInfo);
+            // Must call after the Global.Initialize() method
+            launcher.Prepare();
+            launcher.Start();
 
             base.OnStartup(e);
         }
@@ -55,13 +58,13 @@ namespace ShecanDesktop
             var assemblyName = Assembly.GetExecutingAssembly().GetName();
 
             // Log exception details
-            using (var crashWriter = new StreamWriter(Launcher.LauncherInfo.AppCrashFile))
+            using (var crashWriter = new StreamWriter(Global.AppInfo.AppCrashFile))
             {
                 crashWriter.BaseStream.Seek(0L, SeekOrigin.End);
                 crashWriter.Flush();
 
                 crashWriter.WriteLine($"Unhandled exception occurred in {assemblyName.Name} v{assemblyName.Version}");
-                crashWriter.WriteLine($"At                : {Launcher.DateTimeStamp}");
+                crashWriter.WriteLine($"At                : {Global.DateTimeStamp}");
                 crashWriter.WriteLine($"Type              : {type}");
                 crashWriter.WriteLine($"File name         : {Path.GetFileName(frame.GetFileName())}");
                 crashWriter.WriteLine($"Method name       : {frame.GetMethod().Name}");

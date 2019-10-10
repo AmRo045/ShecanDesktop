@@ -3,58 +3,39 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using ShecanDesktop.Common.Log;
 
 namespace ShecanDesktop.Core
 {
     public class Launcher
     {
+        #region Constructors
+
+        public Launcher(AppInfo appInfo)
+        {
+            _appInfo = appInfo;
+        }
+
+        #endregion
+
         #region Private Members
 
+        private readonly AppInfo _appInfo;
         private bool _isAppReadyToLaunch;
 
         #endregion
 
-        #region Static Public Members
+        #region Public Members
 
-        public static string DateTimeStamp => $"{DateTime.Now:yyyy-MM-dd hh-mm-ss}";
-        public static ILogger Logger;
-        public static LauncherInfo LauncherInfo;
-
-        #endregion
-
-        #region Non-Static Public Members
-        
-        public virtual void PrepareApplication()
+        public void Prepare()
         {
-            // Create a instance of LauncherInfo and puts it in LauncherInfo field.
-            // We can access to LauncherInfo field from anywhere of the application.
-            InitializeLauncher();
-
-            // NOTE: Should be call after LauncherInfo initializing.
-            // Because we need to log directory path that will specify in LauncherInfo.
-            // Create a logger instance and puts it in Logger field.
-            // We can access to Logger field from anywhere of the application.
-            StartLogger();
-
-            // NOTE: Should be call after launcher initializing.
-            // Because we need to primary directories collection that will specify in LauncherInfo.
             CheckPrimaryDirectories();
-
-            // Manage app crash details
             ManageAppCrash();
-
-            // Make application single instance
             CheckInstances();
-
-            // Set application info such as name, version, etc
             SetAppInfo();
-
-            // Set app status
             _isAppReadyToLaunch = true;
         }
 
-        public virtual void StartApplication()
+        public void Start()
         {
             if (!_isAppReadyToLaunch)
                 throw new InvalidOperationException("App is not ready to launch. You must calling the Prepare method first.");
@@ -66,30 +47,22 @@ namespace ShecanDesktop.Core
             // manager in App.xaml.cs (EnableUnhandledExceptionManager method) after
             // the application launched, we cannot show the main window using ShowDialog method.
             Application.Current.MainWindow.Show();
+
+            if (!Global.AppInfo.AppCommandLine.Contains("-debug")) return;
+
+            Global.Logger.LogInfo($"Executable Path: {Global.AppInfo.AppFullPath}");
+            Global.Logger.LogInfo($"App Version: {Global.AppInfo.AppVersion}");
+            Global.Logger.LogInfo($"Command Line: {Global.AppInfo.AppCommandLine}");
+            Global.Logger.LogInfo($"Current Os: {Global.GetOsName()}");
         }
 
         #endregion
 
         #region Protected Methods
 
-        protected void InitializeLauncher()
-        {
-            LauncherInfo = new LauncherInfo();
-            LauncherInfo.Initialize();
-        }
-
-        protected void StartLogger()
-        {
-            var logFileName = $"{LauncherInfo.AppLogFolder}" +
-                              $"{DateTimeStamp}.log";
-
-            Logger = new Logger();
-            Logger.Start(logFileName, DateTimeStamp);
-        }
-
         protected void CheckPrimaryDirectories()
         {
-            var primaryDirectories = LauncherInfo.AppPrimaryDirectories;
+            var primaryDirectories = _appInfo.AppPrimaryDirectories;
 
             foreach (var primaryDirectory in primaryDirectories)
             {
@@ -100,23 +73,23 @@ namespace ShecanDesktop.Core
             }
         }
 
-        protected static void ManageAppCrash()
+        protected void ManageAppCrash()
         {
-            if (!File.Exists(LauncherInfo.AppCrashFile))
+            if (!File.Exists(_appInfo.AppCrashFile))
                 return;
 
-            var crashDetails = File.ReadAllLines(LauncherInfo.AppCrashFile);
+            var crashDetails = File.ReadAllLines(_appInfo.AppCrashFile);
             if (crashDetails.Length < 0) return;
 
             // Crash file new location
-            var crashFileNewLocation = $"{LauncherInfo.AppCrashFolder}{DateTime.Now:yyyy-MM-dd hh-mm-ss}.txt";
+            var crashFileNewLocation = $"{_appInfo.AppCrashFolder}{DateTime.Now:yyyy-MM-dd hh-mm-ss}.txt";
 
             // Prepare crash folder
-            if (!Directory.Exists(LauncherInfo.AppCrashFolder))
-                Directory.CreateDirectory(LauncherInfo.AppCrashFolder);
+            if (!Directory.Exists(_appInfo.AppCrashFolder))
+                Directory.CreateDirectory(_appInfo.AppCrashFolder);
 
             // Move crash file to crash folder
-            File.Move(LauncherInfo.AppCrashFile,
+            File.Move(_appInfo.AppCrashFile,
                 crashFileNewLocation);
 
             // Display app last crash details using Notepad
@@ -134,7 +107,7 @@ namespace ShecanDesktop.Core
 
         protected void SetAppInfo()
         {
-            Application.Current.Resources["AppVersion"] = LauncherInfo.AppVersion;
+            Application.Current.Resources["AppVersion"] = _appInfo.AppVersion;
         }
 
         #endregion

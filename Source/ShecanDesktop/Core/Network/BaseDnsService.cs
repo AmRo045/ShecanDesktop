@@ -2,16 +2,17 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
+using Microsoft.Win32;
 
 namespace ShecanDesktop.Core.Network
 {
     public abstract class BaseDnsService
     {
-        protected readonly string NetworkConfigurationPath;
+        protected readonly string NetworkConfigurationRegistryPath;
 
         protected BaseDnsService()
         {
-            NetworkConfigurationPath = "Win32_NetworkAdapterConfiguration";
+            NetworkConfigurationRegistryPath = @"SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\{0}";
         }
 
         protected virtual NetworkInterface GetCurrentInterface()
@@ -24,6 +25,15 @@ namespace ShecanDesktop.Core.Network
                          .Any(g => g.Address.AddressFamily.ToString() == "InterNetwork"));
 
             return networkInterface;
+        }
+
+        protected virtual void ChangeNameServerValue(string ipAddresses)
+        {
+            var currentAdapterId = GetCurrentInterface().Id;
+            var registryPath = string.Format(NetworkConfigurationRegistryPath, currentAdapterId);
+
+            using (var registryKey = Registry.LocalMachine.OpenSubKey(registryPath, true))
+                registryKey?.SetValue("NameServer", ipAddresses);
         }
 
         protected virtual void FlushDns()

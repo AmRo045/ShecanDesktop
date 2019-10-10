@@ -97,8 +97,9 @@
     <Compile Include="Contracts\IBox.cs" />
     <Compile Include="Converters\BoolToStatusConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Core\Global.cs" />
     <Compile Include="Core\Launcher.cs" />
-    <Compile Include="Core\LauncherInfo.cs" />
+    <Compile Include="Core\AppInfo.cs" />
     <Compile Include="Core\Network\BaseDnsService.cs" />
     <Compile Include="Core\Network\DnsService.cs" />
     <Compile Include="Core\Network\IDnsService.cs" />

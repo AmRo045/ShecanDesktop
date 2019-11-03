@@ -76,9 +76,7 @@
         <!--#region Boxes Host-->
         <controls:BoxHost
             x:Name="BoxHost"
-            x:FieldModifier="private"
-            Width="{Binding ElementName=MainSectionGrid, Path=ActualWidth}"
-            Height="{Binding ElementName=MainSectionGrid, Path=ActualHeight}"/>
+            x:FieldModifier="private"/>
         <!--#endregion-->
     </Grid>
 

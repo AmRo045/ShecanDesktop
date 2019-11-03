@@ -26,10 +26,7 @@
     ShowMaxRestoreButton="False"
     Height="{StaticResource MainWindowHeight}" 
     Width="{StaticResource MainWindowWidth}"
-    MaxHeight="{StaticResource MainWindowHeight}" 
-    MaxWidth="{StaticResource MainWindowWidth}"
-    MinHeight="{StaticResource MainWindowHeight}" 
-    MinWidth="{StaticResource MainWindowWidth}"
+    ResizeMode="CanMinimize"
     Loaded="OnMainWindowLoaded"
     Name="This">
 

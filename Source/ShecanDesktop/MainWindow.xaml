@@ -12,7 +12,6 @@
     Icon="{StaticResource AppIcon48X48}"
     SaveWindowPosition="False"
     WindowStartupLocation="CenterScreen"
-    TitleCharacterCasing="Normal"
     ShowIconOnTitleBar="False"
     Background="{DynamicResource BodyBackground}"
     TitleForeground="{DynamicResource BodyForeground}"

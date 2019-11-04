@@ -67,6 +67,9 @@ namespace ShecanDesktop.Core.Network
         {
             try
             {
+                // For some reason System.Net.Dns.GetHostAddresses method
+                // does not return IP addresses in correct order.
+                // So i have to reorder returned IP addresses to correct order.
                 var addresses = System.Net.Dns.GetHostAddresses(url);
 
                 var preferredIp = addresses[0].ToString().StartsWith("178") ?
